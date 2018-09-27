@@ -4,7 +4,7 @@ using System.Text;
 
 
 
-namespace ConsoleContactAPI
+namespace FullContactAPILib
 {
     public struct Website
     {

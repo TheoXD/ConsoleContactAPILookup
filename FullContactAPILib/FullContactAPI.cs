@@ -10,24 +10,24 @@ using RestSharp.Authenticators;
 
 
 
-namespace ConsoleContactAPI
+namespace FullContactAPILib
 {
-
     public class FullContactAPI : IFullContactApi
     {
+        private string APIKey;
+
+        public FullContactAPI() { }
+        public FullContactAPI(string _APIKey) {
+            this.APIKey = _APIKey;
+        }
+
         public Task<FullContactPerson> LookupPersonByEmailAsync(string _email)
         {
             var client = new RestClient("https://api.fullcontact.com");
             
             var request = new RestRequest("v2/person.json?email=" + _email, Method.GET);
 
-            string api_key = DefaultConfig.APIKey;
-            if (Config.Instance.APIKey.Length > 0)
-            {
-                api_key = Config.Instance.APIKey;
-            }
-
-            request.AddHeader("X-FullContact-APIKey", api_key);
+            request.AddHeader("X-FullContact-APIKey", this.APIKey);
 
             IRestResponse<FullContactPerson> response = client.Execute<FullContactPerson>(request);
 

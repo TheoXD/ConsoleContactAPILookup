@@ -3,6 +3,8 @@
 using System.Threading.Tasks;
 using Nito.AsyncEx;
 
+using FullContactAPILib;
+
 namespace ConsoleContactAPI
 {
     class Program
@@ -46,7 +48,7 @@ namespace ConsoleContactAPI
         {
             if (IsValidEmail(_email))
             {
-                FullContactAPI api = new FullContactAPI();
+                FullContactAPI api = new FullContactAPI(Config.Instance.APIKey);
 
                 FullContactPerson person = await api.LookupPersonByEmailAsync(_email);
 

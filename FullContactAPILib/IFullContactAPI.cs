@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Nito.AsyncEx;
 
-namespace ConsoleContactAPI
+namespace FullContactAPILib
 {
     public interface IFullContactApi
     {
