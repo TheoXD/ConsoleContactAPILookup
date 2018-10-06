@@ -56,7 +56,6 @@ namespace ConsoleContactAPI
             }
             else
             {
-                //Console.WriteLine("invalid email address");
                 throw new Exception("invalid email address");
             }
         }

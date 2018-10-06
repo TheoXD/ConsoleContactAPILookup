@@ -26,9 +26,14 @@ namespace FullContactAPILib
         public string givenName { get; set; }
     }
 
-    public struct SocialProfiles
+    public struct SocialProfile
     {
-
+        public string type { get; set; }
+        public string typeId { get; set; }
+        public string typeName { get; set; }
+        public string url { get; set; }
+        public string username { get; set; }
+        public string id { get; set; }
     }
 
     public class FullContactPerson
@@ -36,15 +41,14 @@ namespace FullContactAPILib
 
         public string likelihood { get; set; }
 
-        public ContactInfo contactInfo;  //{ get; set; }
-        public SocialProfiles socialProfiles;  //{ get; set; }
+        public ContactInfo contactInfo  { get; set; }
+        public List<SocialProfile> socialProfiles  { get; set; }
 
         public override string ToString()
         {
             string ret = "";
             ret += "likelihood: " + this.likelihood + "\n";
 
-            /* Object couldn't properly diserialize :(
             ret += "contactInfo:" + "\n";
             ret += "\t FirstName: " + this.contactInfo.givenName + "\n";
 
@@ -55,13 +59,23 @@ namespace FullContactAPILib
             {
                     ret += "\t " + website.url + "\n";
             }
-
+            
             ret += "chats: " + "\n";
             foreach (Chat chat in this.contactInfo.chats)
             {
                 ret += "\t (" + chat.client + ") " + chat.handle + "\n";
             }
-            */
+
+            ret += "social media profiles: " + "\n";
+            foreach (SocialProfile profile in this.socialProfiles)
+            {
+                string identifier = "";
+                if (!String.IsNullOrEmpty(profile.username)) identifier = " as " + profile.username;
+                if (!String.IsNullOrEmpty(profile.id)) identifier += " with ID: " + profile.id;
+
+                ret += "\t on " + profile.typeName + " (" + profile.url + ")" + identifier + "\n";
+            }
+
             return ret;
         }
     }

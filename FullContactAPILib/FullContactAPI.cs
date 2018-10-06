@@ -29,9 +29,14 @@ namespace FullContactAPILib
 
             request.AddHeader("X-FullContact-APIKey", this.APIKey);
 
-            IRestResponse<FullContactPerson> response = client.Execute<FullContactPerson>(request);
+            var task_completion = new TaskCompletionSource<FullContactPerson>();
 
-            return Task.FromResult<FullContactPerson>(response.Data);
+            client.ExecuteAsync<FullContactPerson>(request, (_response) =>
+            {
+                task_completion.SetResult(_response.Data);
+            });
+
+            return task_completion.Task as Task<FullContactPerson>;
         }
 
     }
